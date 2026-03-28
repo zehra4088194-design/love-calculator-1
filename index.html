@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Calculator 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --bg-gradient: linear-gradient(to bottom, #ffecd2 0%, #fcb69f 100%);
+            --text-dark: #2d3436;
+            --text-light: #ffffff;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 182, 193, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(173, 216, 230, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+            animation: breathe 8s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        .floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: rgba(255, 105, 180, 0.6);
+            animation: float-up 15s linear infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px 30px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper::before {
+            content: '❤️';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            z-index: 1;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 15px 15px 50px;
+            border: 3px solid transparent;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(white, white) padding-box,
+                        var(--secondary-gradient) border-box;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(245, 87, 108, 0.3);
+        }
+
+        .heart-divider {
+            text-align: center;
+            font-size: 2rem;
+            margin: 20px 0;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: var(--secondary-gradient);
+            color: var(--text-light);
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            font-family: 'Poppins', sans-serif;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.5);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .result {
+            margin-top: 30px;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .result.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .percentage {
+            font-size: 5rem;
+            font-weight: 600;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+            text-shadow: 0 0 30px rgba(102, 126, 234, 0.3);
+            animation: scaleIn 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .message {
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin: 15px 0;
+            font-weight: 500;
+            animation: fadeIn 0.6s ease-out 0.4s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .celebration {
+            font-size: 3rem;
+            margin: 20px 0;
+            animation: rotate 1s ease-in-out 0.6s both;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+                opacity: 0;
+            }
+            to {
+                transform: rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        .names-display {
+            background: var(--accent-gradient);
+            padding: 15px;
+            border-radius: 15px;
+            color: white;
+            font-weight: 600;
+            margin-bottom: 20px;
+            animation: fadeIn 0.6s ease-out both;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .percentage {
+                font-size: 4rem;
+            }
+
+            .message {
+                font-size: 1.1rem;
+            }
+
+            input {
+                font-size: 0.95rem;
+                padding: 13px 13px 13px 45px;
+            }
+
+            button {
+                padding: 16px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 25px 15px;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
+
+            .percentage {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <div class="container">
+        <h1>Love Calculator</h1>
+        <p class="subtitle">Apna aur apne partner ka naam daalein! 💕</p>
+
+        <div class="input-group">
+            <label for="name1">Pehla Naam</label>
+            <div class="input-wrapper">
+                <input type="text" id="name1" placeholder="Apna naam likhein">
+            </div>
+        </div>
+
+        <div class="heart-divider">💖</div>
+
+        <div class="input-group">
+            <label for="name2">Doosra Naam</label>
+            <div class="input-wrapper">
+                <input type="text" id="name2" placeholder="Partner ka naam likhein">
+            </div>
+        </div>
+
+        <button onclick="calculateLove()">Calculate Love! 💘</button>
+
+        <div class="result" id="result">
+            <div class="names-display" id="namesDisplay"></div>
+            <div class="percentage" id="percentage"></div>
+            <div class="message" id="message"></div>
+            <div class="celebration" id="celebration"></div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const heartCount = window.innerWidth < 600 ? 15 : 25;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '💕';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.animationDuration = (15 + Math.random() * 10) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        createFloatingHearts();
+
+        function normalizeText(text) {
+            return text.trim().toLowerCase().replace(/\s+/g, ' ');
+        }
+
+        function isSpecialPair(name1, name2) {
+            const n1 = normalizeText(name1);
+            const n2 = normalizeText(name2);
+
+            const husnainVariants = ['husnain', 'husnain noor'];
+            const hiraVariants = ['hira', 'hira imran', 'heer'];
+
+            const isHusnain = husnainVariants.includes(n1);
+            const isHira = hiraVariants.includes(n2);
+
+            const isHusnainReverse = husnainVariants.includes(n2);
+            const isHiraReverse = hiraVariants.includes(n1);
+
+            return (isHusnain && isHira) || (isHusnainReverse && isHiraReverse);
+        }
+
+        function generateConsistentPercentage(name1, name2) {
+            // Simple hash function for consistent results
+            const str = normalizeText(name1) + normalizeText(name2);
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash = hash & hash;
+            }
+            // Generate percentage between 50-99
+            return 50 + (Math.abs(hash) % 50);
+        }
+
+        function getMessage(percentage) {
+            if (percentage === 100) {
+                return [
+                    "Mubarak ho! 🎊 Yeh toh perfect match hai!",
+                    "💯 Jadoo hai is pyar mein!",
+                    "Allah ne aap dono ko ek doosre ke liye banaya hai! ✨"
+                ];
+            } else if (percentage >= 80) {
+                return [
+                    "Bohot zabardast! ❤️",
+                    "Yeh toh kamaal ka rishta hai!",
+                    "Bahut achha match hai! 🌟"
+                ];
+            } else if (percentage >= 60) {
+                return [
+                    "Achha hai! 😊",
+                    "Koshish karte rahein!",
+                    "Umeed hai! 💪"
+                ];
+            } else {
+                return [
+                    "Hmm... 🤔",
+                    "Shayad dost hi behtar hain!",
+                    "Thoda mushkil hai! 😅"
+                ];
+            }
+        }
+
+        function calculateLove() {
+            const name1 = document.getElementById('name1').value;
+            const name2 = document.getElementById('name2').value;
+
+            if (!name1 || !name2) {
+                alert('Kripya dono naam bharen!');
+                return;
+            }
+
+            let percentage;
+            if (isSpecialPair(name1, name2)) {
+                percentage = 100;
+            } else {
+                percentage = generateConsistentPercentage(name1, name2);
+            }
+
+            const messages = getMessage(percentage);
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+            // Hide result first
+            const resultDiv = document.getElementById('result');
+            resultDiv.classList.remove('show');
+
+            // Update content after a brief delay
+            setTimeout(() => {
+                document.getElementById('namesDisplay').innerHTML = 
+                    `${name1} 💕 ${name2}`;
+                document.getElementById('percentage').textContent = percentage + '%';
+                document.getElementById('message').textContent = randomMessage;
+                document.getElementById('celebration').textContent = 
+                    percentage === 100 ? '🎉🎊💝🎉' : percentage >= 80 ? '🎉💕' : percentage >= 60 ? '😊💕' : '🤷‍♂️';
+
+                // Show result with animation
+                resultDiv.classList.add('show');
+            }, 100);
+        }
+
+        // Allow Enter key to calculate
+        document.getElementById('name1').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculateLove();
+        });
+        document.getElementById('name2').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') calculateLove();
+        });
+    </script>
+</body>
+</html>
